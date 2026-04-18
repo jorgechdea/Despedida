@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de los Novios 🎉</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1e1e1e, #3a0ca3);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: #1e1e1e;
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+    }
+
+    .category {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .difficulty {
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    .question {
+      font-size: 24px;
+      margin: 25px 0;
+    }
+
+    button {
+      padding: 16px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: #ff4081;
+      color: white;
+      cursor: pointer;
+      margin: 5px;
+      width: 80%;
+      max-width: 300px;
+    }
+
+    button:hover {
+      background: #e91e63;
+    }
+
+    input {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      width: 100px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🎲 Juego de los Novios</h1>
+
+  <div class="card">
+    <div id="category" class="category">Categoría</div>
+    <div id="difficulty" class="difficulty">Dificultad</div>
+    <div id="question" class="question">Presiona "Siguiente"</div>
+
+    <input type="number" id="shots" placeholder="Shots" min="1" max="10">
+
+    <br><br>
+
+    <button onclick="nextQuestion()">🎴 Siguiente pregunta</button>
+    <button onclick="resetGame()">🔄 Reiniciar</button>
+  </div>
+
+  <script>
+    const questions = [
+      // FÁCIL
+      { category: "Novia", difficulty: "Fácil", text: "¿Cuál es su comida favorita?" },
+      { category: "Novio", difficulty: "Fácil", text: "¿Cuál es su bebida favorita?" },
+      { category: "Relación", difficulty: "Fácil", text: "¿Dónde se conocieron?" },
+      { category: "Novia", difficulty: "Fácil", text: "¿Color favorito?" },
+      { category: "Novio", difficulty: "Fácil", text: "¿Deporte favorito?" },
+      { category: "Relación", difficulty: "Fácil", text: "¿Quién dio el primer beso?" },
+      { category: "Novia", difficulty: "Fácil", text: "¿Prefiere dulce o salado?" },
+      { category: "Novio", difficulty: "Fácil", text: "¿Es más de fiesta o de casa?" },
+      { category: "Relación", difficulty: "Fácil", text: "¿Quién dijo 'te amo' primero?" },
+      { category: "Relación", difficulty: "Fácil", text: "¿Quién es más puntual?" },
+
+      // MEDIA
+      { category: "Novia", difficulty: "Media", text: "¿Cuál es su peor hábito?" },
+      { category: "Novio", difficulty: "Media", text: "¿Qué hace al despertar?" },
+      { category: "Relación", difficulty: "Media", text: "¿Quién cocina mejor?" },
+      { category: "Novia", difficulty: "Media", text: "¿A qué le tiene miedo?" },
+      { category: "Novio", difficulty: "Media", text: "¿Comida menos favorita?" },
+      { category: "Relación", difficulty: "Media", text: "¿Quién es más celoso?" },
+      { category: "Novia", difficulty: "Media", text: "¿Primer trabajo?" },
+      { category: "Novio", difficulty: "Media", text: "¿Hobby principal?" },
+      { category: "Relación", difficulty: "Media", text: "¿Quién pide perdón primero?" },
+      { category: "Relación", difficulty: "Media", text: "¿Quién gasta más?" },
+      { category: "Novia", difficulty: "Media", text: "¿Serie favorita?" },
+      { category: "Novio", difficulty: "Media", text: "¿Talento inútil?" },
+      { category: "Relación", difficulty: "Media", text: "¿Quién maneja mejor?" },
+      { category: "Novia", difficulty: "Media", text: "¿Qué la enoja rápido?" },
+      { category: "Relación", difficulty: "Media", text: "¿Quién tarda más en arreglarse?" },
+
+      // DIFÍCIL
+      { category: "Novia", difficulty: "Difícil", text: "¿Cuál fue su peor cita?" },
+      { category: "Novio", difficulty: "Difícil", text: "¿Peor peda?" },
+      { category: "Relación", difficulty: "Difícil", text: "¿Primera cita?" },
+      { category: "Novia", difficulty: "Difícil", text: "¿Mayor inseguridad?" },
+      { category: "Novio", difficulty: "Difícil", text: "¿Mayor miedo?" },
+      { category: "Relación", difficulty: "Difícil", text: "¿Quién es más terco?" },
+      { category: "Novia", difficulty: "Difícil", text: "¿Su mayor red flag?" },
+      { category: "Novio", difficulty: "Difícil", text: "¿Peor hábito?" },
+      { category: "Relación", difficulty: "Difícil", text: "¿Quién inició la relación?" },
+      { category: "Relación", difficulty: "Difícil", text: "¿Quién es más dramático?" },
+      { category: "Novia", difficulty: "Difícil", text: "¿Qué cambiaría de su pareja?" },
+      { category: "Novio", difficulty: "Difícil", text: "¿Qué lo hace feliz de la relación?" },
+      { category: "Relación", difficulty: "Difícil", text: "¿Quién gana discusiones?" },
+
+      // EXTREMA
+      { category: "Relación", difficulty: "Extrema", text: "¿Quién es mejor en la cama?" },
+      { category: "Relación", difficulty: "Extrema", text: "¿Quién tiene más ex?" },
+      { category: "Relación", difficulty: "Extrema", text: "¿Quién es más tóxico?" },
+      { category: "Relación", difficulty: "Extrema", text: "¿Quién se enoja peor?" },
+      { category: "Relación", difficulty: "Extrema", text: "¿Quién revisó el celular?" },
+      { category: "Novia", difficulty: "Extrema", text: "¿Lo más raro borracha?" },
+      { category: "Novio", difficulty: "Extrema", text: "¿Momento más vergonzoso?" },
+      { category: "Relación", difficulty: "Extrema", text: "¿Quién olvidaría aniversario?" },
+      { category: "Relación", difficulty: "Extrema", text: "¿Quién manda realmente?" },
+      { category: "Relación", difficulty: "Extrema", text: "¿Quién es más intenso?" },
+      { category: "Relación", difficulty: "Extrema", text: "¿Quién ha mentido más?" },
+      { category: "Relación", difficulty: "Extrema", text: "¿Quién está más enamorado?" }
+    ];
+
+    let remainingQuestions = [...questions];
+
+    const colors = {
+      "Fácil": "lightgreen",
+      "Media": "yellow",
+      "Difícil": "orange",
+      "Extrema": "red"
+    };
+
+    function nextQuestion() {
+      if (remainingQuestions.length === 0) {
+        document.getElementById("question").innerText = "Ya no hay más preguntas 😢";
+        return;
+      }
+
+      const index = Math.floor(Math.random() * remainingQuestions.length);
+      const q = remainingQuestions.splice(index, 1)[0];
+
+      document.getElementById("category").innerText = "Categoría: " + q.category;
+      document.getElementById("difficulty").innerText = "Dificultad: " + q.difficulty;
+      document.getElementById("difficulty").style.color = colors[q.difficulty];
+      document.getElementById("question").innerText = q.text;
+    }
+
+    function resetGame() {
+      remainingQuestions = [...questions];
+      document.getElementById("question").innerText = "Juego reiniciado 🎉";
+      document.getElementById("category").innerText = "";
+      document.getElementById("difficulty").innerText = "";
+    }
+  </script>
+
+</body>
+</html>
