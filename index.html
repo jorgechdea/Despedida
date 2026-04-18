@@ -76,6 +76,7 @@
   <h1>🎲 Pregunta a los Novios</h1>
 
   <div class="card">
+
     <div id="question" class="question">Presiona "Siguiente"</div>
 
     <br><br>
@@ -135,16 +136,12 @@
       const q = remainingQuestions.splice(index, 1)[0];
 
       document.getElementById("category").innerText = "Categoría: " + q.category;
-      document.getElementById("difficulty").innerText = "Dificultad: " + q.difficulty;
-      document.getElementById("difficulty").style.color = colors[q.difficulty];
       document.getElementById("question").innerText = q.text;
     }
 
     function resetGame() {
       remainingQuestions = [...questions];
       document.getElementById("question").innerText = "Juego reiniciado 🎉";
-      document.getElementById("category").innerText = "";
-      document.getElementById("difficulty").innerText = "";
     }
   </script>
 
