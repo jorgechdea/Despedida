@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jaume Velez 🎉</title>
+  <title>Juego de los Novios 🎉</title>
 
   <style>
     body {
@@ -80,6 +80,8 @@
     <div id="difficulty" class="difficulty">Dificultad</div>
     <div id="question" class="question">Presiona "Siguiente"</div>
 
+    <input type="number" id="shots" placeholder="Shots" min="1" max="10">
+
     <br><br>
 
     <button onclick="nextQuestion()">🎴 Siguiente pregunta</button>
@@ -88,7 +90,6 @@
 
   <script>
     const questions = [
-      // FÁCIL
       { category: "Relación", difficulty: "Media", text: "¿Cuál es su comida favorita?" },
       { category: "Relación", difficulty: "Media", text: "¿Cuál es su bebida favorita?" },
       { category: "Relación", difficulty: "Media", text: "¿Color favorito?" },
@@ -106,10 +107,10 @@
       { category: "Relación", difficulty: "Media", text: "¿Que es lo que mas le molesta de ti?" },
       { category: "Relación", difficulty: "Media", text: "¿Mayor fetiche?" },
       { category: "Relación", difficulty: "Media", text: "¿Que es lo que mas le gusta de ti?" },
-      { category: "Relación", difficulty: "Media", text: "¿Quién es más puntual?" },
-      { category: "Relación", difficulty: "Media", text: "¿Quién es más puntual?" },
-      { category: "Relación", difficulty: "Media", text: "¿Quién es más puntual?" },
       { category: "Relación", difficulty: "Media", text: "¿Serie favorita?" },
+      { category: "Relación", difficulty: "Media", text: "¿Quién es más puntual?" },
+      { category: "Relación", difficulty: "Media", text: "¿Quién es más puntual?" },
+      { category: "Relación", difficulty: "Media", text: "¿Quién es más puntual?" },
 
       // MEDIA
       { category: "Relación", difficulty: "Media", text: "¿Cuál es su peor hábito?" },
@@ -120,23 +121,6 @@
       { category: "Relación", difficulty: "Media", text: "¿Quién gasta más?" },
       { category: "Relación", difficulty: "Media", text: "¿Talento inútil?" },
       { category: "Relación", difficulty: "Media", text: "¿Comida favorita?" },
-
-      // DIFÍCIL
-      { category: "Relación", difficulty: "Difícil", text: "¿Cuál fue su primer peda?" },
-      { category: "Relación", difficulty: "Difícil", text: "¿Primera cita?" },
-      { category: "Relación", difficulty: "Difícil", text: "¿Mayor miedo?" },
-      { category: "Relación", difficulty: "Difícil", text: "¿Quién es más terco?" },
-      { category: "Relación", difficulty: "Difícil", text: "¿Su mayor red flag?" },
-      { category: "Relación", difficulty: "Difícil", text: "¿Peor hábito?" },
-      { category: "Relación", difficulty: "Difícil", text: "¿Quién inició la relación?" },
-      { category: "Relación", difficulty: "Difícil", text: "¿Quién es más dramático?" },
-      { category: "Relación", difficulty: "Difícil", text: "¿Qué cambiaría de su pareja?" },
-      { category: "Relación", difficulty: "Difícil", text: "¿Qué lo hace feliz de la relación?" },
-      { category: "Relación", difficulty: "Difícil", text: "¿Quién gana discusiones?" },
-
-      // EXTREMA
-      { category: "Relación", difficulty: "Difícil", text: "¿Momento más vergonzoso?" },
-      { category: "Relación", difficulty: "Difícil", text: "¿Quién es más intenso?" },
     ];
 
     let remainingQuestions = [...questions];
